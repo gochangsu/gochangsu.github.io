@@ -1,9 +1,224 @@
-<html>
-  <head>
-    <title>안녕하세요. 고창수입니다. </title>
-  </head>
-  <body>
-    안녕하세요.<br>
-    index.html입니다.
-  </body>
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>C,osmos — Go Changsu</title>
+  <meta name="description" content="C,osmos — 우주를 사랑하는 Go Changsu의 포트폴리오" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0e16;
+      --bg-soft:#0e1220;
+      --card:#12172a;
+      --text:#e8ecf3;
+      --muted:#a8b3c7;
+      --accent:#6ea8ff;
+      --accent-2:#9ad4ff;
+      --ring: rgba(110,168,255,0.35);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 80% -10%, #1a2443 0%, transparent 60%),
+        radial-gradient(900px 600px at -10% 110%, #101a36 0%, transparent 60%),
+        var(--bg);
+    }
+    a{color:inherit; text-decoration:none}
+    .container{
+      max-width:1100px; margin:0 auto; padding:28px 20px 80px; position:relative;
+    }
+
+    /* ===== Top Right Profile ===== */
+    .profile{
+      position: absolute; top:24px; right:20px;
+      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:14px; display:flex; gap:12px; align-items:center;
+      backdrop-filter: blur(6px);
+    }
+    .profile .pics{
+      display:grid; grid-template-columns: 1fr 1fr; gap:8px;
+      width:140px;
+    }
+    .profile img{
+      width:100%; height:68px; object-fit:cover; border-radius:10px;
+      border:1px solid rgba(255,255,255,.1);
+    }
+    .profile .info{min-width: 210px}
+    .profile .name{font-weight:700; letter-spacing:.2px}
+    .profile .meta{color:var(--muted); font-size:.9rem; line-height:1.35}
+    .chip{
+      display:inline-flex; align-items:center; gap:6px; padding:6px 10px;
+      border-radius:999px; background:rgba(110,168,255,.12); border:1px solid var(--ring);
+      font-size:.85rem; color:var(--accent-2); margin-top:8px;
+    }
+
+    /* ===== Center Title (C,osmos) ===== */
+    .hero{
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      padding:120px 0 40px; text-align:center;
+    }
+    .logo{
+      font-family:Poppins, Inter, sans-serif; font-weight:800;
+      font-size: clamp(42px, 6vw, 92px); letter-spacing: 2px;
+      line-height:1; position: relative; display:inline-block;
+      text-shadow: 0 8px 30px rgba(110,168,255,.15);
+    }
+    /* 핵심: C + 쉼표(,)를 이용해 G처럼 보이는 착시 효과 */
+    .logo .c{ display:inline-block; position:relative; padding-right:.12ch }
+    .logo .comma{
+      display:inline-block; position:absolute; right:-.22ch; bottom:.1ch;
+      transform: rotate(180deg) translateY(5%);
+      font-size: .92em; color: var(--accent-2); opacity:.95;
+      text-shadow: 0 4px 18px rgba(154,212,255,.4);
+      pointer-events:none;
+    }
+    .logo .osmos{ color:#dfe9ff }
+    .subtitle{ color:var(--muted); margin-top:16px; max-width:720px }
+
+    /* ===== 3 Category Cards ===== */
+    .grid{
+      margin-top:48px;
+      display:grid; grid-template-columns: repeat(3,1fr); gap:20px;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius); padding:22px;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      box-shadow: var(--shadow); position:relative; overflow:hidden;
+    }
+    .card:hover{ transform: translateY(-3px); border-color: rgba(110,168,255,.35); box-shadow: 0 18px 45px rgba(20,35,70,.45) }
+    .card h3{ margin:12px 0 8px; font-family:Poppins; letter-spacing:.2px }
+    .card p{ color:var(--muted); margin:0 }
+    .icon{
+      width:42px; height:42px; display:grid; place-items:center;
+      border-radius:12px; background: rgba(110,168,255,.12);
+      border:1px solid var(--ring);
+    }
+    .icon svg{ width:22px; height:22px }
+    .card .arrow{
+      position:absolute; right:16px; top:16px; opacity:.6;
+      transition: transform .25s ease, opacity .25s ease;
+    }
+    .card:hover .arrow{ transform: translateX(4px); opacity:.9 }
+
+    /* ===== Footer ===== */
+    footer{
+      margin-top:56px; text-align:center; color:var(--muted); font-size:.9rem;
+      border-top:1px solid rgba(255,255,255,.08);
+      padding-top:24px;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 980px){
+      .profile{ position: static; margin: 8px auto 0; width: fit-content }
+      .hero{ padding-top: 60px }
+    }
+    @media (max-width: 780px){
+      .grid{ grid-template-columns:1fr; }
+      .profile .pics{ width:130px }
+      .profile .info{ min-width: unset }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 우측 상단(모바일에서는 상단)에 배치되는 프로필 카드 -->
+    <aside class="profile" aria-label="Profile card">
+      <div class="pics" aria-hidden="true">
+        <!-- TODO: 아래 두 이미지 경로를 교체하세요 -->
+        <img src="assets/business-card.jpg" alt="명함 이미지" />
+        <img src="assets/pale-blue-dot.jpg" alt="보이저호가 촬영한 창백한 푸른 점" />
+      </div>
+      <div class="info">
+        <div class="name">Go Changsu</div>
+        <div class="meta">South Korea · <a href="mailto:youremail@example.com">youremail@example.com</a></div>
+        <div class="chip" title="GitHub Profile">
+          <!-- 작은 GH 마크 느낌의 SVG -->
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.43-4.04-1.43-.55-1.4-1.35-1.77-1.35-1.77-1.1-.76.08-.75.08-.75 1.22.09 1.87 1.27 1.87 1.27 1.08 1.86 2.83 1.32 3.52 1.01.11-.8.42-1.33.76-1.64-2.67-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.25-3.22-.13-.31-.54-1.56.12-3.26 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.66 1.7.25 2.95.12 3.26.78.84 1.25 1.91 1.25 3.22 0 4.62-2.8 5.64-5.48 5.94.43.37.81 1.09.81 2.21v3.28c0 .32.21.7.83.58A12 12 0 0 0 12 .5z"/></svg>
+          <span style="margin-left:4px;">github.com/your-id</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 중앙 히어로 타이틀 -->
+    <header class="hero">
+      <h1 class="logo" aria-label="C,osmos">
+        <span class="c">C<span class="comma">,</span></span><span class="osmos">osmos</span>
+      </h1>
+      <p class="subtitle">
+        “C와 쉼표(,)를 조합해 G처럼 보이는 착시 타이포” — 우주를 사랑하는 Go Changsu의 작업과 학습, 그리고 다음 단계.
+      </p>
+    </header>
+
+    <!-- 3가지 카테고리 -->
+    <main class="grid" aria-label="카테고리">
+      <!-- 과거 -->
+      <a class="card" href="past.html" aria-label="과거에 해온 일로 이동">
+        <span class="icon" aria-hidden="true">
+          <!-- history/clock-rotate-left -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 3-6.7M3 3v6h6" />
+            <path d="M12 7v5l3 2" />
+          </svg>
+        </span>
+        <h3>과거에 해온 일</h3>
+        <p>제조 인프라, 건설 프로젝트 관리, 스마트팩토리 관련 경험과 산출물.</p>
+        <span class="arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </span>
+      </a>
+
+      <!-- 현재 -->
+      <a class="card" href="present.html" aria-label="현재 하고 있는 일로 이동">
+        <span class="icon" aria-hidden="true">
+          <!-- bolt/brain-ish -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z"/>
+          </svg>
+        </span>
+        <h3>현재 하고 있는</h3>
+        <p>사이버대 AI 학습, 데이터/ML 실험, 지식관리 워크플로우 고도화.</p>
+        <span class="arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </span>
+      </a>
+
+      <!-- 미래 -->
+      <a class="card" href="future.html" aria-label="미래에 하고 싶은 일로 이동">
+        <span class="icon" aria-hidden="true">
+          <!-- rocket -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 3c3 0 7 4 7 7-3 1-6 2-8 4-2 2-3 5-4 8-3 0-7-4-7-7 3-1 6-2 8-4 2-2 3-5 4-8z"/>
+            <path d="M9 15l-3 3M15 9l3-3M12 12l0 .01"/>
+          </svg>
+        </span>
+        <h3>미래에 하고 싶은</h3>
+        <p>우주·자연·역사 기반의 글쓰기, 연구 어시스턴트 프로젝트, 출간 목표.</p>
+        <span class="arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </span>
+      </a>
+    </main>
+
+    <footer>
+      © <span id="y"></span> C,osmos — Go Changsu
+    </footer>
+  </div>
+
+  <script>
+    // 연도 자동 업데이트
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
 </html>

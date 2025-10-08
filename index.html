@@ -5,19 +5,13 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>COSMOS — Go Changsu</title>
   <meta name="description" content="COSMOS — 우주를 사랑하는 Go Changsu의 포트폴리오" />
-  <!-- 타이틀 폰트: 참고 이미지와 유사한 클래식 세리프 계열 -->
+  <!-- 타이틀 폰트: 참고 이미지 느낌의 클래식 세리프 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root{
-      /* 밝고 선명한 톤 */
-      --bg:#f7f9ff;
-      --panel:#ffffff;
-      --ink:#0e1320;
-      --muted:#556072;
-      --line:#e7ecf5;
-      --accent:#2b63ff;
-      --radius:18px;
+      --bg:#f7f9ff; --panel:#ffffff; --ink:#0e1320; --muted:#556072;
+      --line:#e7ecf5; --accent:#2b63ff; --radius:18px;
       --shadow: 0 10px 30px rgba(18,35,70,.08);
     }
     *{box-sizing:border-box}
@@ -31,22 +25,26 @@
         var(--bg);
     }
     a{color:inherit; text-decoration:none}
-
     .container{max-width:1100px; margin:0 auto; padding:28px 20px 80px; position:relative;}
 
-    /* 우측 상단 프로필 카드 (라이트 톤) */
+    /* ===== Profile (right-top) ===== */
     .profile{
       position:absolute; top:24px; right:20px;
       background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.82));
       border:1px solid var(--line);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
-      padding:14px; display:flex; gap:12px; align-items:center;
+      padding:14px; display:flex; gap:14px; align-items:center;
       backdrop-filter:saturate(140%) blur(6px);
     }
-    .profile .pics{display:grid; grid-template-columns:1fr 1fr; gap:8px; width:170px;}
-    .profile img{width:100%; height:86px; object-fit:cover; border-radius:12px; border:1px solid var(--line);}
-    .profile .info{min-width:230px}
+    /* 단일 이미지 레이아웃로 변경 (공백 제거) */
+    .profile .pics{display:block;}
+    .profile img{
+      width:170px; height:96px; object-fit:cover;
+      border-radius:12px; border:1px solid var(--line);
+      display:block;
+    }
+    .profile .info{min-width:220px}
     .profile .name{font-weight:700; letter-spacing:.2px}
     .profile .meta{color:var(--muted); font-size:.92rem; line-height:1.35}
     .chip{
@@ -56,36 +54,22 @@
     }
     .chip svg{flex:0 0 16px}
 
-    /* 중앙 히어로 타이틀 */
+    /* ===== Hero / Title ===== */
     .hero{display:flex; flex-direction:column; align-items:center; justify-content:center; padding:120px 0 34px; text-align:center;}
     .logo{
-      /* 전체 대문자, 큰 사이즈, 레퍼런스와 유사한 인상 */
-      font-family:"Cinzel", serif;
-      font-weight:900;
+      font-family:"Cinzel", serif; font-weight:900;
       font-size:clamp(64px, 9.5vw, 140px);
-      letter-spacing:0.14em;
-      text-transform:uppercase;
-      line-height:0.88;
-      position:relative; display:inline-block;
+      letter-spacing:0.14em; text-transform:uppercase;
+      line-height:0.88; position:relative; display:inline-block;
     }
-    /* C + ','로 G 착시 만들기: 가로막대는 제거, 검은 쉼표를 크게 배치 */
-    .logo .cg{ position:relative; display:inline-block; padding-right:0.04em; }
+    /* C,OSMOS: 쉼표 강조(검은색+약간 크게+살짝 올림) */
     .logo .comma{
-      position:absolute;
-      /* C의 내부 중간 높이쯤에 쉼표를 얹어 G의 가로획처럼 보이도록 */
-      left:0.47em; top:52%;
-      transform: translate(-15%,-50%) rotate(10deg);
-      font-size:0.78em;      /* 더 크게 */
-      font-weight:900;
-      color:#000;            /* 검은색 */
-      line-height:1;
-      pointer-events:none;
+      position:relative; top:-0.06em;
+      font-size:1.25em; color:#000; font-weight:900;
     }
-    .logo .rest{color:var(--ink)}
-
     .subtitle{color:var(--muted); margin-top:16px; max-width:760px; font-size:1.02rem}
 
-    /* 3 카테고리 (라이트 카드) */
+    /* ===== 3 Category Cards ===== */
     .grid{margin-top:44px; display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
     .card{
       background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:22px;
@@ -109,26 +93,23 @@
       border-top:1px solid var(--line); padding-top:24px;
     }
 
-    /* 반응형 */
+    /* ===== Responsive ===== */
     @media (max-width: 980px){
       .profile{ position:static; margin:8px auto 0; width:fit-content }
       .hero{ padding-top:60px }
     }
     @media (max-width: 780px){
       .grid{ grid-template-columns:1fr; }
-      .profile .pics{ width:160px }
+      .profile img{ width:160px; height:92px }
       .profile .info{ min-width:unset }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- 우측 상단(모바일에서는 상단) 프로필 -->
+    <!-- Profile (명함 삭제, 단일 이미지) -->
     <aside class="profile" aria-label="Profile card">
-      <div class="pics" aria-hidden="true">
-        <!-- 업로드한 이미지를 실제 경로로 교체하세요 -->
-        <!-- 예시: assets/business-card.jpg  /  assets/pale-blue-dot.jpg -->
-        <!--img src="busi_card.jpg" alt="Go Changsu 명함" /-->
+      <div class="pics">
         <img src="PaleBlueDot.jpg" alt="보이저호가 촬영한 창백한 푸른 점" />
       </div>
       <div class="info">
@@ -143,21 +124,18 @@
       </div>
     </aside>
 
-    <!-- 중앙 타이틀: COSMOS (C + 큰 검은 쉼표로 G 착시) -->
+    <!-- Hero Title: C,OSMOS -->
     <header class="hero">
       <h1 class="logo" aria-label="COSMOS">
-        <span class="cg">C,OSMOS</span>
+        C<span class="comma">,</span>OSMOS
       </h1>
-      <p class="subtitle">
-        EXPLORING THE UNIVERSE OF POSSIBILITIES
-      </p>
+      <p class="subtitle">EXPLORING THE UNIVERSE OF POSSIBILITIES</p>
     </header>
 
-    <!-- 3 카테고리 -->
+    <!-- 3 Categories -->
     <main class="grid" aria-label="카테고리">
       <a class="card" href="past.html" aria-label="과거에 해온 일로 이동">
         <span class="icon" aria-hidden="true">
-          <!-- clock/history -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 12a9 9 0 1 0 3-6.7M3 3v6h6" />
             <path d="M12 7v5l3 2" />
@@ -172,7 +150,6 @@
 
       <a class="card" href="present.html" aria-label="현재 하고 있는 일로 이동">
         <span class="icon" aria-hidden="true">
-          <!-- bolt -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
             <path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z"/>
           </svg>
@@ -186,7 +163,6 @@
 
       <a class="card" href="future.html" aria-label="미래에 하고 싶은 일로 이동">
         <span class="icon" aria-hidden="true">
-          <!-- rocket -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
             <path d="M14 3c3 0 7 4 7 7-3 1-6 2-8 4-2 2-3 5-4 8-3 0-7-4-7-7 3-1 6-2 8-4 2-2 3-5 4-8z"/>
             <path d="M9 15l-3 3M15 9l3-3M12 12l0 .01"/>
@@ -206,7 +182,6 @@
   </div>
 
   <script>
-    // 연도 자동 업데이트
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>

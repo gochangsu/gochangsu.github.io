@@ -17,7 +17,7 @@
 
   /* Space background */
   --space-dark:#00060f;
-  --space-img:url("https://images-assets.nasa.gov/image/PIA17569/PIA17569~orig.jpg");/*"https://images-assets.nasa.gov/image/hubble-spies-a-rebel_23912757873_o/hubble-spies-a-rebel_23912757873_o~orig.jpg");*/
+  --space-img:url("https://images-assets.nasa.gov/image/PIA17569/PIA17569~orig.jpg");
   --space-opacity:.86;
   --stars-opacity:.14;
 }

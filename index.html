@@ -11,11 +11,17 @@
     :root{
       --bg:#f7f9ff; --panel:#ffffff; --ink:#0e1320; --muted:#556072;
       --line:#e7ecf5; --accent:#2b63ff; --radius:18px; --shadow:0 10px 30px rgba(18,35,70,.08);
-      --space-dark:#0a0f1a;
-      /* NASA 이미지: 반드시 https 스킴 포함 */
+
+      /* Space background */
+      --space-dark:#000713;
       --space-img: url("https://images-assets.nasa.gov/image/hubble-spies-a-rebel_23912757873_o/hubble-spies-a-rebel_23912757873_o~orig.jpg");
-      --pb-height: 88px; /* PaleBlueDot 목표 높이 (텍스트보다 +1줄 정도) */
+      --space-opacity: 0.75;   /* ↑ 배경 가시성 (0.0~1.0) */
+      --stars-opacity: 0.22;   /* ↓ 별 반짝임 강도 */
+
+      /* Profile image height */
+      --pb-height: 88px;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     html{scroll-behavior:smooth}
@@ -27,35 +33,40 @@
     }
     a{color:inherit; text-decoration:none}
 
-    /* ===== Space background (고정, 은은한 우주) ===== */
+    /* ===== Space background (오버레이 최소화) ===== */
     .space{
-      position:relative; isolation:isolate; min-height:100vh; /* 첫 화면만 보이도록 */
+      position:relative; isolation:isolate; min-height:100vh;
     }
     .space::before{
       content:""; position:fixed; inset:0; z-index:-2;
       background:
-        var(--space-img),
-        radial-gradient(1200px 900px at 50% -10%, rgba(20,35,70,.25), transparent 60%),
+        var(--space-img),               /* 우주 사진 */
+        radial-gradient(1600px 1100px at 50% -10%, rgba(10,15,26,.20), transparent 65%), /* 아주 옅은 상단 비네팅 */
         var(--space-dark);
-      background-size:cover,auto,auto; background-position:center; opacity:.32;
+      background-size:cover,auto,auto; background-position:center;
+      opacity:var(--space-opacity);
     }
     .space::after{
       content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
       background:
         radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.9) 50%, transparent 51%),
-        radial-gradient(2px 2px at 70% 40%, rgba(255,255,255,.8) 50%, transparent 51%),
-        radial-gradient(1.5px 1.5px at 40% 80%, rgba(255,255,255,.7) 50%, transparent 51%),
-        radial-gradient(1.8px 1.8px at 85% 65%, rgba(255,255,255,.8) 50%, transparent 51%);
-      animation: twinkle 4.5s ease-in-out infinite alternate; opacity:.6;
+        radial-gradient(2px 2px at 70% 40%, rgba(255,255,255,.85) 50%, transparent 51%),
+        radial-gradient(1.6px 1.6px at 40% 80%, rgba(255,255,255,.8) 50%, transparent 51%),
+        radial-gradient(1.8px 1.8px at 85% 65%, rgba(255,255,255,.85) 50%, transparent 51%);
+      animation: twinkle 4.5s ease-in-out infinite alternate;
+      opacity:var(--stars-opacity);
     }
-    @keyframes twinkle{ 0%{opacity:.45; transform:translateY(0)} 100%{opacity:.85; transform:translateY(-2px)} }
+    @keyframes twinkle{ 0%{opacity:calc(var(--stars-opacity) - .08); transform:translateY(0)} 100%{opacity:calc(var(--stars-opacity) + .08); transform:translateY(-2px)} }
 
-    .container{ max-width:1100px; margin:0 auto; padding:24px 20px; position:relative; min-height:100vh; display:flex; flex-direction:column; }
+    .container{
+      max-width:1100px; margin:0 auto; padding:24px 20px; position:relative;
+      min-height:100vh; display:flex; flex-direction:column;
+    }
 
-    /* ===== Profile (우측 상단 / PaleBlueDot 고정 높이 + 원비율) ===== */
+    /* ===== Profile (오른쪽 상단) ===== */
     .profile{
       position:absolute; top:20px; right:20px;
-      background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.82));
+      background:linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.82));
       border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
       padding:8px 10px; display:flex; gap:10px; align-items:center; backdrop-filter:saturate(140%) blur(6px);
       width:max-content;
@@ -74,7 +85,7 @@
     }
     .chip svg{flex:0 0 16px}
 
-    /* ===== Hero (뷰포트 가득 채움) ===== */
+    /* ===== Hero (한 화면에 수납) ===== */
     .hero{
       flex:1 0 auto;
       display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -86,7 +97,7 @@
     }
     .logo .comma{ position:relative; top:-0.06em; font-size:1.5em; color:#000; font-weight:900; }
 
-    /* ===== Scrolling subtitle (COSMOS 바로 아래, 속도↑) ===== */
+    /* ===== Scrolling subtitle (COSMOS 바로 아래, 더 빠르게) ===== */
     .ticker{
       margin-top:2px; /* 더 가깝게 */
       width:min(760px, 92vw);
@@ -95,23 +106,22 @@
     }
     .ticker__track{
       position:absolute; white-space:nowrap; will-change:transform;
-      animation: slideLeft 7s linear infinite; /* 더 빠르게 */
+      animation: slideLeft 6s linear infinite; /* 속도 ↑ */
       top:50%; transform:translateY(-50%);
       padding:0 8px; color:#334055; font-size:0.98rem;
     }
     @keyframes slideLeft{
       0%   { transform: translate(0, -50%); }
-      100% { transform: translate(-50%, -50%); } /* 동일 문구 2회 기준 */
+      100% { transform: translate(-50%, -50%); }
     }
 
-    /* ===== Intro Cards (한 화면에 정렬) ===== */
+    /* ===== 3 Cards: 좌/중/우 (중앙 widther + taller) ===== */
     .intro{
       margin-top:18px;
-      display:grid; grid-template-columns: 1fr 1fr; gap:16px;
+      display:grid; grid-template-columns: 1fr 1.6fr 1fr; gap:16px;
       width:100%; padding-bottom:32px;
+      align-items:start; /* 가운데 카드를 더 길게 */
     }
-    /* ‘현재’는 최상단 한 줄 전체(컨테이너 최대폭) */
-    .card--present{ grid-column: 1 / -1; }
     .card{
       background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px;
       transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
@@ -128,7 +138,12 @@
     .card .arrow{ position:absolute; right:14px; top:14px; opacity:.55; transition:transform .2s ease, opacity .2s ease; }
     .card:hover .arrow{ transform:translateX(4px); opacity:.9 }
 
-    /* 푸터(메인에서는 여백만) */
+    /* 가운데(현재)만 더 크고, 높이도 크게 */
+    .card--present{
+      min-height: 136px;               /* 좌우보다 더 높게 */
+      display:block;
+    }
+
     footer{ height:0; overflow:hidden }
 
     /* ===== Responsive ===== */
@@ -136,6 +151,7 @@
       .profile{ position:static; margin:8px auto 0; width:fit-content }
       .hero{ padding-top:40px }
       .intro{ grid-template-columns:1fr; }
+      .card--present{ min-height:unset }
     }
   </style>
 </head>
@@ -155,34 +171,20 @@
         </div>
       </aside>
 
-      <!-- Hero (원스크린) -->
+      <!-- Hero -->
       <header class="hero">
         <h1 class="logo" aria-label="COSMOS">C<span class="comma">,</span>OSMOS</h1>
 
-        <!-- Moving subtitle (right->left, 더 빠르게/가깝게) -->
+        <!-- Moving subtitle (더 빠르고, 더 가깝게) -->
         <div class="ticker" aria-hidden="true">
           <div class="ticker__track">
             EXPLORING THE UNIVERSE OF POSSIBILITIES • EXPLORING THE UNIVERSE OF POSSIBILITIES •
           </div>
         </div>
 
-        <!-- Intro cards: '현재' 풀폭, 나머지 반폭 / 각각 개별 페이지로 이동 -->
+        <!-- 3 Cards: 좌/중/우 (중앙 widther + taller). 각자 상세 페이지 링크 -->
         <nav class="intro" aria-label="인트로 카테고리">
-          <!-- 현재 (풀폭) -->
-          <a class="card card--present" href="present.html" aria-label="현재 하고 있는 일 상세 페이지로 이동">
-            <span class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z"/>
-              </svg>
-            </span>
-            <h3>현재 하고 있는</h3>
-            <p>AI · 데이터사이언스</p>
-            <span class="arrow" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </span>
-          </a>
-
-          <!-- 과거 (반폭) -->
+          <!-- 과거 (좌) -->
           <a class="card" href="past.html" aria-label="과거에 해온 일 상세 페이지로 이동">
             <span class="icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
@@ -196,7 +198,21 @@
             </span>
           </a>
 
-          <!-- 미래 (반폭) -->
+          <!-- 현재 (가운데: 넓고 높게) -->
+          <a class="card card--present" href="present.html" aria-label="현재 하고 있는 일 상세 페이지로 이동">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z"/>
+              </svg>
+            </span>
+            <h3>현재 하고 있는</h3>
+            <p>AI · 데이터사이언스</p>
+            <span class="arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </span>
+          </a>
+
+          <!-- 미래 (우) -->
           <a class="card" href="future.html" aria-label="미래에 하고 싶은 일 상세 페이지로 이동">
             <span class="icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
@@ -213,95 +229,6 @@
         </nav>
       </header>
       <footer></footer>
-    </div>
-  </div>
-
-  <script>
-    // 연도 (메인에선 사용 안 함. 추후 푸터에 표기 시 활용)
-    // document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
-</body>
-</html>
-
-
-
-<!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>과거에 해온 일 — COSMOS</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root{ --ink:#0e1320; --muted:#556072; --line:#e7ecf5; --radius:18px; }
-    body{margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:var(--ink); background:#f7f9ff;}
-    .wrap{max-width:900px; margin:0 auto; padding:28px 18px 64px;}
-    header{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;}
-    a{color:inherit; text-decoration:none}
-    .btn{padding:10px 14px; border:1px solid var(--line); border-radius:999px; background:#fff}
-    h1{font-family:"Cinzel",serif; margin:10px 0 12px}
-    .kicker{color:var(--muted); margin-bottom:18px}
-    .card{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:18px;}
-    ul{margin:0; padding-left:18px; line-height:1.7}
-    ul li+li{margin-top:6px}
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <header>
-      <a class="btn" href="./">← Home</a>
-      <div>Past</div>
-    </header>
-    <h1>과거에 해온 일</h1>
-    <div class="kicker">Experience — Past works</div>
-    <div class="card">
-      <ul>
-        <li>영어 어학연수 1년 — <strong>뉴질랜드</strong></li>
-        <li>건설회사 13년 <strong>전기공사 관리</strong> — 코오롱글로벌 외, JTBC 방송국, 청소년 수련원, 아파트</li>
-        <li>제조업(현재) 12년차 — <strong>건설프로젝트 관리, 인프라그룹장</strong> 등</li>
-      </ul>
-    </div>
-  </div>
-</body>
-</html>
-
-
-
-<!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>현재 하고 있는 — COSMOS</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root{ --ink:#0e1320; --muted:#556072; --line:#e7ecf5; --radius:18px; }
-    body{margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:var(--ink); background:#f7f9ff;}
-    .wrap{max-width:900px; margin:0 auto; padding:28px 18px 64px;}
-    header{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;}
-    a{color:inherit; text-decoration:none}
-    .btn{padding:10px 14px; border:1px solid var(--line); border-radius:999px; background:#fff}
-    h1{font-family:"Cinzel",serif; margin:10px 0 12px}
-    .kicker{color:var(--muted); margin-bottom:18px}
-    .card{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:18px;}
-    ul{margin:0; padding-left:18px; line-height:1.7}
-    ul li+li{margin-top:6px}
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <header>
-      <a class="btn" href="./">← Home</a>
-      <div>Present</div>
-    </header>
-    <h1>현재 하고 있는</h1>
-    <div class="kicker">What I'm working on now</div>
-    <div class="card">
-      <ul>
-        <li>서울사이버대 <strong>인공지능 학과</strong> — 인공지능·파이썬 학습</li>
-        <li>설비/유틸리티 <strong>운전데이터 수집</strong>, 반복업무/주기메일 <strong>자동화</strong> 아이템 조사</li>
-        <li><strong>시트검사기</strong> 양품/재검/불량 <strong>판별 시스템</strong> 구축 목표</li>
-      </ul>
     </div>
   </div>
 </body>

@@ -11,7 +11,7 @@
     :root{
       --bg:#f7f9ff; --panel:#ffffff; --ink:#0e1320; --muted:#556072;
       --line:#e7ecf5; --accent:#2b63ff; --radius:18px; --shadow:0 10px 30px rgba(18,35,70,.08);
-      --space-dark:#0a0f1a; --space-img: url("");
+      --space-dark:#0a0f1a; --space-img: url("images-assets.nasa.gov/image/PIA13782/PIA13782~orig.jpg");
       --pb-height: 88px; /* PaleBlueDot 목표 높이: 텍스트영역보다 한 줄 정도 크게 */
     }
     *{box-sizing:border-box}
@@ -71,11 +71,11 @@
       font-family:"Cinzel", serif; font-weight:900; font-size:clamp(64px, 9.2vw, 136px);
       letter-spacing:0.14em; text-transform:uppercase; line-height:0.9; position:relative; display:inline-block;
     }
-    .logo .comma{ position:relative; top:-0.06em; font-size:1.25em; color:#000; font-weight:900; }
+    .logo .comma{ position:relative; top:-0.06em; font-size:1.5em; color:#000; font-weight:900; }
 
     /* ===== Scrolling subtitle (marquee) ===== */
     .ticker{
-      margin-top:6px; /* COSMOS와 더 가깝게 */
+      margin-top:3px; /* COSMOS와 더 가깝게 */
       width:min(720px, 90vw);
       height:28px; overflow:hidden; position:relative; border-radius:999px;
       background:rgba(255,255,255,.7); border:1px solid var(--line);
@@ -160,7 +160,7 @@
         <!-- Moving subtitle (right->left) -->
         <div class="ticker" aria-hidden="true">
           <div class="ticker__track">
-            EXPLORING THE UNIVERSE OF POSSIBILITIES • EXPLORING THE UNIVERSE OF POSSIBILITIES •
+            EXPLORING THE UNIVERSE OF POSSIBILITIES
           </div>
         </div>
 
@@ -173,7 +173,7 @@
               </svg>
             </span>
             <h3>과거에 해온 일</h3>
-            <p>뉴질랜드 어학연수 · 건설/전기 PM · 제조 인프라 프로젝트</p>
+            <p>건설/전기 관리 · 제조 인프라 PM</p>
             <span class="arrow" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </span>
@@ -186,7 +186,7 @@
               </svg>
             </span>
             <h3>현재 하고 있는</h3>
-            <p>SCU AI/파이썬 · 설비 데이터 수집 · 자동화 아이템 · 시트검사기 판정 과제</p>
+            <p>AI/파이썬 스터디</p>
             <span class="arrow" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </span>
@@ -200,7 +200,7 @@
               </svg>
             </span>
             <h3>미래에 하고 싶은</h3>
-            <p>도메인지식 × AI/데이터 사이언스 · 언젠가 책 쓰기</p>
+            <p>AI/데이터 사이언스 · 책 쓰기</p>
             <span class="arrow" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </span>

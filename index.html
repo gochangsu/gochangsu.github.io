@@ -35,7 +35,7 @@
     html{scroll-behavior:smooth}
     body{
       margin:0;
-      font-family:"Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family:"Nanum Gothic", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background:var(--space-dark);
       color:var(--ink-bright);     /* 우주 배경 위 기본 라이트 텍스트 */
       overflow-x:hidden;
@@ -139,7 +139,7 @@
     }
     .card{
       position:relative; overflow:hidden;
-      background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.08));
+      background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.08));
       border:1px solid rgba(180,200,255,.35);
       border-radius:var(--radius); padding:18px;
       color:#eef3ff; box-shadow:var(--shadow);
@@ -173,7 +173,7 @@
     .card--present{ min-height:156px; }
 
     /* 애니메이션 */
-    @keyframes fadeInGlass{ to{ opacity:1 } }
+    @keyframes fadeInGlass{ to{ opacity:0.5 } }
 
     /* ===== Responsive ===== */
     @media (max-width: 980px){
@@ -208,7 +208,7 @@
         <div class="ticker" aria-hidden="true">
           <div class="ticker__track">
             <div class="ticker__chunk">EXPLORING THE UNIVERSE OF POSSIBILITIES •</div>
-            <div class="ticker__chunk" aria-hidden="true">EXPLORING THE UNIVERSE OF POSSIBILITIES •</div>
+            <div class="ticker__chunk" aria-hidden="true">EXPLORING THE UNIVERSE OF POSSIBILITIES, DO NOT NEED COME BACK</div>
           </div>
         </div>
 

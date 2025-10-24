@@ -5,43 +5,53 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>COSMOS — Go Changsu</title>
   <meta name="description" content="COSMOS — 우주를 사랑하는 Go Changsu의 포트폴리오" />
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#f7f9ff; --panel:#ffffff; --ink:#0e1320; --muted:#556072;
-      --line:#e7ecf5; --accent:#2b63ff; --radius:18px; --shadow:0 10px 30px rgba(18,35,70,.08);
+      /* Color tokens */
+      --ink:#0c1020;         /* 일반 텍스트 */
+      --ink-bright:#f6f9ff;  /* 우주배경 위 라이트 텍스트 */
+      --muted:#6a768b;
+      --accent:#3a6bff;
+      --panel:rgba(255,255,255,.16); /* 글래스 배경 */
+      --line:rgba(255,255,255,.28);  /* 글래스 보더 */
+      --radius:18px;
+      --shadow: 0 20px 60px rgba(0,0,0,.25);
 
-      /* Space background */
-      --space-dark:#000713;
+      /* Space background (HTTPS 절대경로 권장) */
+      --space-dark:#00060f;
       --space-img: url("https://images-assets.nasa.gov/image/hubble-spies-a-rebel_23912757873_o/hubble-spies-a-rebel_23912757873_o~orig.jpg");
-      --space-opacity: 0.75;   /* ↑ 배경 가시성 (0.0~1.0) */
-      --stars-opacity: 0.55;   /* ↓ 별 반짝임 강도 */
+      --space-opacity: 0.82;   /* 배경 선명도 */
+      --stars-opacity: 0.18;   /* 별 반짝임 강도 */
 
-      /* Profile image height */
-      --pb-height: 88px;
+      /* Components */
+      --pb-height: 90px;       /* PaleBlueDot 목표 높이 */
+      --grid-mid: 1.8fr;       /* 가운데 카드 폭 비율 */
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
     html{scroll-behavior:smooth}
     body{
-      margin:0; color:var(--ink);
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:var(--bg);
+      margin:0;
+      color:var(--ink);
+      font-family:"Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--space-dark);
       overflow-x:hidden;
     }
     a{color:inherit; text-decoration:none}
 
-    /* ===== Space background (오버레이 최소화) ===== */
+    /* ===== Space background (overlay 최소화) ===== */
     .space{
       position:relative; isolation:isolate; min-height:100vh;
     }
     .space::before{
       content:""; position:fixed; inset:0; z-index:-2;
       background:
-        var(--space-img),               /* 우주 사진 */
-        radial-gradient(1600px 1100px at 50% -10%, rgba(10,15,26,.20), transparent 65%), /* 아주 옅은 상단 비네팅 */
+        var(--space-img),
+        radial-gradient(1600px 1100px at 50% -10%, rgba(8,12,24,.18), transparent 65%),
         var(--space-dark);
       background-size:cover,auto,auto; background-position:center;
       opacity:var(--space-opacity);
@@ -49,107 +59,135 @@
     .space::after{
       content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
       background:
-        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.9) 50%, transparent 51%),
-        radial-gradient(2px 2px at 70% 40%, rgba(255,255,255,.85) 50%, transparent 51%),
-        radial-gradient(1.6px 1.6px at 40% 80%, rgba(255,255,255,.8) 50%, transparent 51%),
-        radial-gradient(1.8px 1.8px at 85% 65%, rgba(255,255,255,.85) 50%, transparent 51%);
+        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.95) 50%, transparent 51%),
+        radial-gradient(2px 2px at 70% 40%, rgba(255,255,255,.9) 50%, transparent 51%),
+        radial-gradient(1.6px 1.6px at 40% 80%, rgba(255,255,255,.85) 50%, transparent 51%),
+        radial-gradient(1.8px 1.8px at 85% 65%, rgba(255,255,255,.9) 50%, transparent 51%);
       animation: twinkle 4.5s ease-in-out infinite alternate;
       opacity:var(--stars-opacity);
     }
-    @keyframes twinkle{ 0%{opacity:calc(var(--stars-opacity) - .08); transform:translateY(0)} 100%{opacity:calc(var(--stars-opacity) + .08); transform:translateY(-2px)} }
+    @keyframes twinkle{ 0%{opacity:calc(var(--stars-opacity) - .06)} 100%{opacity:calc(var(--stars-opacity) + .06)} }
 
     .container{
       max-width:1100px; margin:0 auto; padding:24px 20px; position:relative;
       min-height:100vh; display:flex; flex-direction:column;
     }
 
-    /* ===== Profile (오른쪽 상단) ===== */
+    /* ===== Profile (우측 상단) — 글래스 카드로 변경 ===== */
     .profile{
       position:absolute; top:20px; right:20px;
-      background:linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.82));
-      border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
-      padding:8px 10px; display:flex; gap:10px; align-items:center; backdrop-filter:saturate(140%) blur(6px);
-      width:max-content;
+      background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.10));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:10px 12px; display:flex; gap:10px; align-items:center;
+      backdrop-filter:saturate(140%) blur(8px);
+      width:max-content; color:var(--ink-bright);
     }
     .profile .pics{display:block; max-width:220px}
     .profile img{
-      height:var(--pb-height); width:auto; display:block; border-radius:12px; border:1px solid var(--line);
+      height:var(--pb-height); width:auto; display:block; border-radius:12px; border:1px solid rgba(255,255,255,.35);
       max-width:220px;
     }
     .profile .info{min-width:190px}
     .profile .name{font-weight:700; letter-spacing:.2px}
-    .profile .meta{color:var(--muted); font-size:.92rem; line-height:1.35}
+    .profile .meta a{color:#dfe7ff}
     .chip{
       display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px;
-      background:#eef3ff; border:1px solid #d8e4ff; font-size:.86rem; color:#345cff; margin-top:8px;
+      background:linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.12));
+      border:1px solid rgba(120,160,255,.45);
+      color:#e3ebff; font-size:.86rem; margin-top:8px;
     }
-    .chip svg{flex:0 0 16px}
+    .chip svg{flex:0 0 16px; opacity:.9}
 
-    /* ===== Hero (한 화면에 수납) ===== */
+    /* ===== Hero (라이트 텍스트 + 글로우) ===== */
     .hero{
       flex:1 0 auto;
       display:flex; flex-direction:column; align-items:center; justify-content:center;
-      padding:84px 0 0; text-align:center;
+      padding:90px 0 0; text-align:center; color:var(--ink-bright);
     }
     .logo{
       font-family:"Cinzel", serif; font-weight:900; font-size:clamp(64px, 9.2vw, 136px);
       letter-spacing:0.14em; text-transform:uppercase; line-height:0.9; position:relative; display:inline-block;
+      color:#f8fbff; text-shadow: 0 2px 18px rgba(80,120,255,.22), 0 0 2px rgba(255,255,255,.5);
     }
     .logo .comma{ position:relative; top:-0.06em; font-size:1.5em; color:#000; font-weight:900; }
 
-    /* ===== Scrolling subtitle (COSMOS 바로 아래, 더 빠르게) ===== */
+    /* ===== Scrolling subtitle (더 가깝고 더 빠르게) ===== */
     .ticker{
-      margin-top:2px; /* 더 가깝게 */
-      width:min(760px, 92vw);
-      height:28px; overflow:hidden; position:relative; border-radius:999px;
-      background:rgba(255,255,255,.78); border:1px solid var(--line);
+      margin-top:2px;
+      width:min(780px, 92vw);
+      height:30px; overflow:hidden; position:relative; border-radius:999px;
+      background:rgba(15,22,45,.5); border:1px solid rgba(120,160,255,.35);
+      backdrop-filter:saturate(140%) blur(6px);
+      box-shadow: 0 8px 30px rgba(0,0,0,.25);
     }
     .ticker__track{
       position:absolute; white-space:nowrap; will-change:transform;
-      animation: slideLeft 6s linear infinite; /* 속도 ↑ */
+      animation: slideLeft 6s linear infinite;
       top:50%; transform:translateY(-50%);
-      padding:0 8px; color:#334055; font-size:0.98rem;
+      padding:0 10px; color:#dbe4ff; font-size:1rem; letter-spacing:.02em;
     }
     @keyframes slideLeft{
       0%   { transform: translate(0, -50%); }
       100% { transform: translate(-50%, -50%); }
     }
 
-    /* ===== 3 Cards: 좌/중/우 (중앙 widther + taller) ===== */
+    /* ===== 3 Cards 레이아웃: 좌 / 가운데(넓고 높게) / 우 ===== */
     .intro{
       margin-top:18px;
-      display:grid; grid-template-columns: 1fr 1.6fr 1fr; gap:16px;
-      width:100%; padding-bottom:32px;
-      align-items:start; /* 가운데 카드를 더 길게 */
+      display:grid; grid-template-columns: 1fr var(--grid-mid) 1fr; gap:16px;
+      width:100%; padding-bottom:32px; align-items:start;
     }
     .card{
-      background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px;
-      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-      box-shadow:var(--shadow); position:relative; overflow:hidden;
+      position:relative; overflow:hidden;
+      background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.08));
+      border:1px solid rgba(180,200,255,.35);
+      border-radius:var(--radius); padding:18px;
+      color:#eef3ff;
+      box-shadow: var(--shadow);
+      backdrop-filter:saturate(150%) blur(12px);
+      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
     }
-    .card:hover{ transform:translateY(-3px); border-color:#d6e1ff; box-shadow:0 18px 45px rgba(18,35,70,.12) }
-    .card h3{ margin:8px 0 6px; font-family:"Cinzel", serif; letter-spacing:.02em; font-size:1.1rem }
-    .card p{ color:var(--muted); margin:0; line-height:1.45; font-size:.95rem }
+    .card::before{
+      /* gradient border glow */
+      content:""; position:absolute; inset:-2px; border-radius:calc(var(--radius) + 2px);
+      padding:1px; background:linear-gradient(135deg, rgba(120,170,255,.8), rgba(255,255,255,.18));
+      -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+    }
+    .card:hover{
+      transform:translateY(-3px);
+      box-shadow:0 24px 70px rgba(20,30,70,.45);
+      background:linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.10));
+      border-color:rgba(160,190,255,.6);
+    }
+    .card h3{
+      margin:8px 0 6px; font-family:"Cinzel", serif; letter-spacing:.02em; font-size:1.1rem; color:#fff;
+      text-shadow:0 1px 8px rgba(40,60,130,.35);
+    }
+    .card p{ color:#cfd9ff; margin:0; line-height:1.45; font-size:.96rem }
     .icon{
       width:40px; height:40px; display:grid; place-items:center;
-      border-radius:12px; background:#eef3ff; border:1px solid #d8e4ff; color:var(--accent);
+      border-radius:12px; background:rgba(255,255,255,.14); border:1px solid rgba(180,200,255,.35);
+      color:#e4ecff;
     }
     .icon svg{ width:20px; height:20px }
-    .card .arrow{ position:absolute; right:14px; top:14px; opacity:.55; transition:transform .2s ease, opacity .2s ease; }
-    .card:hover .arrow{ transform:translateX(4px); opacity:.9 }
+    .card .arrow{ position:absolute; right:14px; top:14px; opacity:.7; transition:transform .2s ease, opacity .2s ease; }
+    .card:hover .arrow{ transform:translateX(4px); opacity:1 }
 
-    /* 가운데(현재)만 더 크고, 높이도 크게 */
-    .card--present{
-      min-height: 136px;               /* 좌우보다 더 높게 */
-      display:block;
-    }
+    /* 가운데 카드 강조(폭 · 높이) */
+    .card--present{ min-height: 156px; }
+
+    /* ===== Profile 더 선명한 링크 포커스 ===== */
+    .profile a:hover{ text-decoration:underline; text-underline-offset:2px }
 
     footer{ height:0; overflow:hidden }
 
     /* ===== Responsive ===== */
     @media (max-width: 980px){
       .profile{ position:static; margin:8px auto 0; width:fit-content }
-      .hero{ padding-top:40px }
+      .hero{ padding-top:42px }
       .intro{ grid-template-columns:1fr; }
       .card--present{ min-height:unset }
     }
@@ -175,16 +213,15 @@
       <header class="hero">
         <h1 class="logo" aria-label="COSMOS">C<span class="comma">,</span>OSMOS</h1>
 
-        <!-- Moving subtitle (더 빠르고, 더 가깝게) -->
+        <!-- Moving subtitle -->
         <div class="ticker" aria-hidden="true">
           <div class="ticker__track">
-            EXPLORING THE UNIVERSE OF INFINITE POSSIBILITIES • NO NEED TO WORRY ABOUT COMING BACK •
+            EXPLORING THE UNIVERSE OF POSSIBILITIES • EXPLORING THE UNIVERSE OF POSSIBILITIES •
           </div>
         </div>
 
-        <!-- 3 Cards: 좌/중/우 (중앙 widther + taller). 각자 상세 페이지 링크 -->
+        <!-- 3 Cards: 좌 / 가운데(넓고 높게) / 우 -->
         <nav class="intro" aria-label="인트로 카테고리">
-          <!-- 과거 (좌) -->
           <a class="card" href="past.html" aria-label="과거에 해온 일 상세 페이지로 이동">
             <span class="icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
@@ -198,7 +235,6 @@
             </span>
           </a>
 
-          <!-- 현재 (가운데: 넓고 높게) -->
           <a class="card card--present" href="present.html" aria-label="현재 하고 있는 일 상세 페이지로 이동">
             <span class="icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
@@ -212,7 +248,6 @@
             </span>
           </a>
 
-          <!-- 미래 (우) -->
           <a class="card" href="future.html" aria-label="미래에 하고 싶은 일 상세 페이지로 이동">
             <span class="icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
@@ -233,7 +268,6 @@
   </div>
 </body>
 </html>
-
 
 
 

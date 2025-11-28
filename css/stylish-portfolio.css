@@ -176,13 +176,13 @@ hr.small {
     -o-background-size: cover;
 }
 
-/* Services */
+/* pastNnow */
 
-.services {
+.pastNnow {
     padding: 50px 0;
 }
 
-.service-item {
+.pastNnow-item {
     margin-bottom: 30px;
 }
 

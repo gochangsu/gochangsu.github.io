@@ -302,17 +302,12 @@ footer {
     min-height: 100vh;
 }
 
-/* ========== DONE (#pastNnow) 가운데 정렬 ========== */
+/* DONE: 섹션 안 내용 가운데 정렬 */
 #pastNnow .container {
     min-height: 100vh;          /* 화면 높이 기준 */
     display: flex;
     flex-direction: column;
     justify-content: center;    /* 세로 가운데 */
-}
-
-/* 내부 콘텐츠가 너무 넓게 퍼지는 것을 방지 */
-#pastNnow .container {
-    width: 100%;
 }
 
 /* CONTACT: 저를 더 만나보세요 + 버튼을 정중앙에 */
@@ -322,16 +317,6 @@ footer {
     flex-direction: column;
     justify-content: center;    /* 세로 가운데 */
     align-items: center;        /* 가로 가운데 */
-}
-
-/* ========== DOING (#portfolio) 아래가 잘려 보이는 문제 개선 ========== */
-#portfolio {
-    min-height: 100vh;          /* 한 화면 기준 확보 */
-    padding-top: 80px;          /* 위 여백 증가 */
-    padding-bottom: 120px;      /* 아래 여백 확보 */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* 위로 약간 올림 */
 }
 
 /* DOING: 아래가 잘려 보이지 않도록 위로 약간 올리기 */

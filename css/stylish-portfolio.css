@@ -299,13 +299,15 @@ footer {
 #portfolio {
     min-height: 100vh;
 }
-
+#portfolio h2 {
+    margin-bottom: 20px; /* 기존보다 살짝 좁게 */
+}
 #portfolio .container {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding-top: 12vh;            /* 제목/카드를 위로 올리는 역할 */
+    padding-top: 20vh;            /* 제목/카드를 위로 올리는 역할 */
     padding-bottom: 8vh;          /* 아래 여백 */
 }
 

@@ -279,3 +279,14 @@ footer {
     max-height: 100%;
     object-fit: contain;
 }
+
+/* 각 섹션을 한 화면(뷰포트) 높이만큼 보이도록 */
+#pastNnow,
+#contact {
+    min-height: 100vh;   /* 화면 높이 최소 100% */
+}
+
+/* 필요하면 DOING 섹션도 한 화면 꽉 채우고 싶을 때 추가 */
+#portfolio {
+    min-height: 100vh;
+}

@@ -280,52 +280,46 @@ footer {
     object-fit: contain;
 }
 
-/* 각 섹션을 한 화면(뷰포트) 높이만큼 보이도록 */
+/* ==== 섹션 레이아웃 정리 (Done / Doing / Contact) ==== */
+
+/* DONE 섹션: 한 화면 채우고, 내용은 화면 위에서 약간 내려온 위치 */
 #pastNnow {
-    min-height: 100vh;   /* 내용이 적으면 화면 채우기, 많으면 그대로 스크롤 */
-    padding-top: 60px;
-    padding-bottom: 60px;
-}
-#contact {
-    <!-- min-height: 100vh;   /* 화면 높이 최소 100% */ -->
-    display: table;
-    width: 100%;
-    height: 100vh;           /* 화면 높이와 동일 */
-}
-#contact .container {
-    display: table-cell;
-    vertical-align: middle;  /* 세로 가운데 정렬 */
+    min-height: 100vh;
 }
 
-/* 필요하면 DOING 섹션도 한 화면 꽉 채우고 싶을 때 추가 */
+#pastNnow .container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;  /* 위에서부터 배치 */
+    padding-top: 18vh;            /* 화면 높이의 18%만큼 위 여백 */
+}
+
+/* DOING 섹션: 살짝만 위로 끌어올리고, 아래도 여백 확보 */
 #portfolio {
     min-height: 100vh;
 }
 
-/* DONE: 섹션 안 내용 가운데 정렬 */
-#pastNnow .container {
-    min-height: 100vh;          /* 화면 높이 기준 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;    /* 세로 가운데 */
-}
-
-/* CONTACT: 저를 더 만나보세요 + 버튼을 정중앙에 */
-#contact .container {
-    min-height: 100vh;          /* 한 화면 기준 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;    /* 세로 가운데 */
-    align-items: center;        /* 가로 가운데 */
-}
-
-/* DOING: 아래가 잘려 보이지 않도록 위로 약간 올리기 */
 #portfolio .container {
-    padding-top: 40px;    /* 위 여백 적당히 */
-    padding-bottom: 80px; /* 아래 여백 넉넉히 */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 12vh;            /* 제목/카드를 위로 올리는 역할 */
+    padding-bottom: 8vh;          /* 아래 여백 */
 }
 
-/* DOING 제목과 카드 사이 여백 */
-#portfolio h2 {
-    margin-bottom: 30px;
+/* CONTACT 섹션: 한 화면 채우고, 내용은 화면 중앙보다 약간 위 */
+#contact {
+    min-height: 100vh;
 }
+
+#contact .container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;          /* 가로 중앙 */
+    justify-content: flex-start;  /* 위에서부터 배치 */
+    padding-top: 30vh;            /* 위쪽에서 30% 지점에 배치 */
+}
+

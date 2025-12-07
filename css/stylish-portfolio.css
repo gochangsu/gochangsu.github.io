@@ -307,7 +307,7 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding-top: 8vh;            /* 제목/카드를 위로 올리는 역할 */
+    padding-top: 0vh;            /* 제목/카드를 위로 올리는 역할 */
     padding-bottom: 10vh;          /* 아래 여백 */
 }
 

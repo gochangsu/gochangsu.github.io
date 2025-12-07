@@ -301,3 +301,44 @@ footer {
 #portfolio {
     min-height: 100vh;
 }
+
+/* ========== DONE (#pastNnow) 가운데 정렬 ========== */
+#pastNnow {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;     /* 세로 가운데 */
+    justify-content: center; /* 가로 가운데 (레이아웃이 한 줄일 경우에만 영향) */
+    flex-direction: column;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+/* 내부 콘텐츠가 너무 넓게 퍼지는 것을 방지 */
+#pastNnow .container {
+    width: 100%;
+}
+
+/* ========== CONTACT (#contact) 전체 화면 + 가운데 정렬 ========== */
+#contact {
+    height: 100vh;              /* 한 화면 꽉 채우기 */
+    display: flex;
+    justify-content: center;    /* 가로 중앙 */
+    align-items: center;        /* 세로 중앙 */
+    flex-direction: column;
+    padding: 40px 0;
+}
+
+/* ========== DOING (#portfolio) 아래가 잘려 보이는 문제 개선 ========== */
+#portfolio {
+    min-height: 100vh;          /* 한 화면 기준 확보 */
+    padding-top: 80px;          /* 위 여백 증가 */
+    padding-bottom: 120px;      /* 아래 여백 확보 */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* 위로 약간 올림 */
+}
+
+/* DOING 섹션 제목과 카드 사이 여백 */
+#portfolio h2 {
+    margin-bottom: 40px;
+}

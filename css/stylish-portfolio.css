@@ -169,7 +169,7 @@ hr.small {
     position: relative;
     width: 100%;
     height: 100%;
-    color: #FFFF00
+    color: #FFFF00;
     background: url("https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000207/GSFC_20171208_Archive_e000207~orig.jpg") no-repeat center center scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;

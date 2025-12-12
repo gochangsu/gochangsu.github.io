@@ -261,9 +261,15 @@ footer {
     border-radius: 10px;
     background: #f7f7f7;   /* 회색 카드 배경 */
     margin: 0 auto 20px;   /* 가운데 정렬 + 아래 간격 */
-    display: flex;
-    justify-content: center;
+    <!-- display: flex; -->
+    <!-- justify-content: center; -->
     align-items: center;
+    
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;  /* 위에서부터 배치 */
+    padding-top: 18vh;            /* 화면 높이의 18%만큼 위 여백 */
 }
 
 /* a 태그도 박스 전체를 차지하도록 */

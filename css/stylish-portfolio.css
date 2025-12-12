@@ -325,3 +325,13 @@ footer {
     padding-top: 30vh;            /* 위쪽에서 30% 지점에 배치 */
 }
 
+/* Contact 아이콘 링크 효과 */
+.icon-link {
+    display: inline-block;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.icon-link:hover {
+    transform: translateY(-6px);
+    opacity: 0.85;
+}

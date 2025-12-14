@@ -20,7 +20,10 @@
       .then(md => {
         // md 안에 </br> 같은 HTML이 섞여있으면, 먼저 br로 정리
         md = md.replace(/<\/br\s*>/gi, '').replace(/<br\s*\/?>/gi, '\n');
-
+  
+        // ✅ 줄 앞 공백 제거(가운데 정렬처럼 보이는 현상 방지)
+        md = md.replace(/^\s{2,}/gm, '');
+        
         // marked로 Markdown → HTML 렌더링
         const html = marked.parse(md);
 

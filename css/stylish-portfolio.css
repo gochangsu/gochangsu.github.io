@@ -403,3 +403,7 @@ footer {
   padding-left: 12px;
   color: #444;
 }
+
+#competitiveModal .md-body {
+  text-align: left !important;
+}

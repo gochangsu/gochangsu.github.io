@@ -335,3 +335,71 @@ footer {
     transform: translateY(-6px);
     opacity: 0.85;
 }
+
+/* ===== Competitive Modal Styling ===== */
+#competitiveModal .modal-dialog {
+  width: 90%;
+  max-width: 980px;
+}
+
+#competitiveModal .modal-header {
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+#competitiveModal .modal-title {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+#competitiveModal .modal-body {
+  max-height: 70vh;
+  overflow: auto;
+  padding: 28px;
+  background: #fbfbfb;
+}
+
+/* Markdown rendered body */
+.md-body {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 10px;
+  padding: 22px 24px;
+  line-height: 1.75;
+  color: #222;
+  font-size: 15px;
+}
+
+/* headings */
+.md-body h1, .md-body h2, .md-body h3 {
+  margin-top: 18px;
+  margin-bottom: 10px;
+  font-weight: 800;
+}
+
+.md-body h2 {
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  padding-bottom: 8px;
+}
+
+/* lists */
+.md-body ul, .md-body ol {
+  padding-left: 22px;
+}
+.md-body li {
+  margin: 6px 0;
+}
+
+/* emphasis / code */
+.md-body strong { font-weight: 800; }
+.md-body code {
+  background: rgba(0,0,0,0.06);
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+/* blockquote */
+.md-body blockquote {
+  border-left: 4px solid rgba(0,0,0,0.15);
+  padding-left: 12px;
+  color: #444;
+}

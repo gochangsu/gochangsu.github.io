@@ -7,18 +7,28 @@
 <!-- Custom Theme JavaScript -->
 <script src="js/custom.js"></script> 
 
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
 <script>
   function openCompetitive() {
     $('#competitiveModal').modal('show');
 
-    fetch('https://raw.githubusercontent.com/gochangsu/gochangsu.github.io/master/exp_mine.md')
-      .then(response => response.text())
-      .then(text => {
-        document.getElementById('competitiveContent').textContent = text;
+    const url = 'https://raw.githubusercontent.com/gochangsu/gochangsu.github.io/master/exp_mine.md';
+
+    fetch(url)
+      .then(res => res.text())
+      .then(md => {
+        // md 안에 </br> 같은 HTML이 섞여있으면, 먼저 br로 정리
+        md = md.replace(/<\/br\s*>/gi, '').replace(/<br\s*\/?>/gi, '\n');
+
+        // marked로 Markdown → HTML 렌더링
+        const html = marked.parse(md);
+
+        document.getElementById('competitiveContent').innerHTML = html;
       })
-      .catch(error => {
-        document.getElementById('competitiveContent').textContent =
-          'Failed to load content.';
+      .catch(err => {
+        document.getElementById('competitiveContent').innerHTML =
+          '<div class="text-danger">Failed to load content.</div>';
       });
   }
 </script>

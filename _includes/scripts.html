@@ -11,7 +11,7 @@
   function openCompetitive() {
     $('#competitiveModal').modal('show');
 
-    fetch('https://raw.githubusercontent.com/gochangsu/REPO_NAME/main/exp_mine.md')
+    fetch('https://raw.githubusercontent.com/gochangsu/gochangsu.github.io/refs/heads/master/exp_mine.md')
       .then(response => response.text())
       .then(text => {
         document.getElementById('competitiveContent').textContent = text;

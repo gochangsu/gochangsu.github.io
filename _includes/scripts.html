@@ -6,3 +6,19 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="js/custom.js"></script> 
+
+<script>
+  function openCompetitive() {
+    $('#competitiveModal').modal('show');
+
+    fetch('https://raw.githubusercontent.com/gochangsu/REPO_NAME/main/exp_mine.md')
+      .then(response => response.text())
+      .then(text => {
+        document.getElementById('competitiveContent').textContent = text;
+      })
+      .catch(error => {
+        document.getElementById('competitiveContent').textContent =
+          'Failed to load content.';
+      });
+  }
+</script>
